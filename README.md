@@ -1,3 +1,4 @@
+![.NET Build Check](https://github.com/AnashyaRDevnath/EventEase-Booking-System/actions/workflows/dotnet-build.yml/badge.svg)
 # EventEase-Booking-System
 
 A cloud-integrated event management web application built with ASP.NET Core MVC, integrating Azure SQL Database and Azure Blob Storage for cloud-hosted data and image storage.
