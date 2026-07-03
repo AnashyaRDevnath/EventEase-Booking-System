@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - EventEase_Booking</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/EventEase_Booking.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <div class="container-fluid p-0">
+            <div class="row g-0 min-vh-100">
+        
+                <!-- VERTICAL SIDEBAR -->
+                <nav class="col-md-3 col-lg-2 bg-dark text-white shadow-sm d-flex flex-column p-3">
+                    <a asp-controller="Home" asp-action="Index" class="text-white text-decoration-none mb-5 mt-3 text-center">
+                        <h3 class="fw-bold">EventEase</h3>
+                        <span class="fs-6 text-muted">Admin Portal</span>
+                    </a>
+            
+                    <ul class="nav nav-pills flex-column mb-auto gap-2">
+                        <li class="nav-item">
+                            <a asp-controller="Home" asp-action="Index" class="nav-link text-white text-start px-3 py-2 border border-secondary rounded hover-bg-secondary">
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Events" asp-action="Index" class="nav-link text-white text-start px-3 py-2 border border-secondary rounded">
+                                Manage Events
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Venues" asp-action="Index" class="nav-link text-white text-start px-3 py-2 border border-secondary rounded">
+                                Manage Venues
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-controller="Bookings" asp-action="Index" class="nav-link text-white text-start px-3 py-2 border border-secondary rounded">
+                                Manage Bookings
+                            </a>
+                        </li>
+                    </ul>
+            
+                    <hr class="text-secondary" />
+                    <div class="text-center text-secondary small pb-3">
+                        &copy; 2026 EventEase
+                    </div>
+                </nav>
+
+                <!-- MAIN CONTENT AREA (Where pages load) -->
+                <main class="col-md-9 col-lg-10 bg-light p-5">
+                    @RenderBody()
+                </main>
+        
+            </div>
+        </div>
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2026 - EventEase_Booking - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

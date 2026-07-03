@@ -1,0 +1,16 @@
+{
+  "dependencies": {
+    "mssql1": {
+      "type": "mssql",
+      "connectionId": "ConnectionStrings:EventEase_BookingContext"
+    },
+    "secrets1": {
+      "type": "secrets"
+    },
+    "storage1": {
+      "type": "storage",
+      "connectionId": "StorageConnection",
+      "dynamicId": null
+    }
+  }
+}

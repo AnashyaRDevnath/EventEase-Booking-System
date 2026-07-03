@@ -1,0 +1,24 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# NuGet
+*.nupkg
+packages/
+
+# Rider/VS Code (in case you ever switch)
+.idea/
+.vscode/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local environment/secrets (extra safety net)
+appsettings.Local.json
+*.env

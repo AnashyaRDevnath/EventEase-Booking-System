@@ -1,0 +1,94 @@
+﻿@model IEnumerable<EventEase_Booking.Models.Venue>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Venues</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p> 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fas fa-check-circle me-2"></i>
+        @TempData["SuccessMessage"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+
+
+@* -- Part 2: Error handling (Empty Data Check) -- *@
+@if (!Model.Any())
+{
+    <div class="alert alert-info shadow-sm rounded border-info mt-4">
+        <i class="fas fa-info-circle me-2"></i>
+        <strong>No Venues Found:</strong> It looks like there aren't any venues registered yet.
+        Click the "Create New" button above to get started!
+    </div>
+}
+else
+{
+    <table class="table table-striped table-hover table-bordered shadow-sm rounded mt-4">
+        @* ================Code Attribution==============
+        Bootstrap Tables    
+        Author: Tutorial Republic    
+        Link: https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-tables.php     
+        Date Accessed: 6 May 2026    
+        ================Code Attribution============== 
+        *@
+        <thead class="table-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.VenueName)</th>
+                <th>@Html.DisplayNameFor(model => model.Location)</th>
+                <th>@Html.DisplayNameFor(model => model.Capacity)</th>
+                <th>@Html.DisplayNameFor(model => model.ImageUrl)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="align-middle">@Html.DisplayFor(modelItem => item.VenueName)</td>
+                    <td class="align-middle">@Html.DisplayFor(modelItem => item.Location)</td>
+                    <td class="align-middle">@Html.DisplayFor(modelItem => item.Capacity)</td>
+                    <td class="align-middle">
+                        @* ========================Code Attribution====================
+                        Bootstrap Image Thumbnails and Razor IF logic                
+                        Author: Bootstrap Team / Microsoft                
+                        Link: https://getbootstrap.com/docs/5.0/content/images/#image-thumbnails                
+                        Date accessed: 7 May 2026                
+                        ========================Code Attribution==================== 
+                        *@
+                        @if (!string.IsNullOrEmpty(item.ImageUrl))   @*This displays a thumbnail instead of the link*@
+                        {
+                            <img src="@item.ImageUrl" alt="@item.VenueName" style="width: 80px; height: auto;" class="img-thumbnail shadow-sm" />
+                        }
+                        else
+                        {
+                            <span class="text-muted fst-italic">No Image</span>
+                        }
+                    </td>
+                    <td class="align-middle">
+                        <div class="btn-group shadow-sm" role="group">
+                            <a asp-action="Edit" asp-route-id="@item.VenueID" class="btn btn-warning btn-sm text-dark">Edit</a>
+                            <a asp-action="Details" asp-route-id="@item.VenueID" class="btn btn-info btn-sm text-white">Details</a>
+                            <a asp-action="Delete" asp-route-id="@item.VenueID" class="btn btn-danger btn-sm">Delete</a>
+                        </div>
+                        @* ================Code Attribution==============
+                        Google AI Overview                    
+                        Author: Google                    
+                        Link: https://www.google.com/search?q=how+to+make+links+look+like+buttons+in+mvc...
+                        Date Accessed: 6 May 2026                    
+                        ================Code Attribution============== 
+                        *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+}

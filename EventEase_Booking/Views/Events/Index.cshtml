@@ -1,0 +1,78 @@
+﻿@model IEnumerable<EventEase_Booking.Models.Event>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Events</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-striped table-hover table-bordered shadow-sm rounded">
+    @*
+    ================Code Attribution==============
+    Bootstrap Tables
+    Author: Tutorial Republic
+    Link: https://www.tutorialrepublic.com/twitter-bootstrap-tutorial/bootstrap-tables.php 
+    Date Accessed: 6 May 2026
+    ================Code Attribution==============
+
+ *@
+    <thead class="table-dark">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.EventName)
+            </th>
+            <th>
+                Image
+            </th>
+
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventName)
+                    
+                </td>
+                <td class="align-middle">
+                    @* ========================Code Attribution====================
+    Bootstrap Image Thumbnails and Razor IF logic
+    Author: Bootstrap Team / Microsoft
+    Link: https://getbootstrap.com/docs/5.0/content/images/#image-thumbnails
+    Date accessed: 7 May 2026
+    ========================Code Attribution==================== *@
+                    @if (!string.IsNullOrEmpty(item.ImageURL))
+                    {
+                        <img src="@item.ImageURL" alt="@item.EventName" style="width: 80px; height: auto;" class="img-thumbnail shadow-sm" />
+                    }
+                    else
+                    {
+                        <span class="text-muted fst-italic">No Image</span>
+                    }
+                </td>
+            
+                <td>
+
+                
+                    <a asp-action="Edit" asp-route-id="@item.EventID" class="btn btn-warning btn-sm">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EventID" class="btn btn-info btn-sm">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EventID" class="btn btn-danger btn-sm">Delete</a>
+                    @* @================Code Attribution==============
+                    Google AI Overview
+                    Author: Google
+                    Link: https://www.google.com/search?q=how+to+make+links+look+like+buttons+in+mvc&oq=how+to+make+links+look+like+buttons+in+mvc&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIHCAEQIRigATIHCAIQIRigATIHCAMQIRigATIHCAQQIRigATIHCAUQIRigATIHCAYQIRifBTIHCAcQIRiPAjIHCAgQIRiPAtIBCTk5NTFqMGoxNagCCLACAfEFJMVSZ0q3pEg&sourceid=chrome&ie=UTF-8
+                    Date Accessed: 6 May 2026
+                    ================Code Attribution==============
+ *@
+                 
+                   
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

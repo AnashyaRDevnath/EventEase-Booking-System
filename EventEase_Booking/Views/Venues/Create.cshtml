@@ -1,0 +1,120 @@
+﻿@model EventEase_Booking.Models.Venue
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+<h4>Venue</h4>
+<hr />
+<div class="row">
+    <div class="col-md-6">
+        @* Widened slightly to fit the preview better *@
+        <form asp-action="Create" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-triangle me-2"></i>
+                <strong>Validation Error:</strong> Please check the details below.
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="VenueName" class="control-label"><i class="fas fa-tag"></i> Venue Name</label>
+                <input asp-for="VenueName" class="form-control" placeholder="e.g. Grand Ballroom" />
+                <span asp-validation-for="VenueName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Location" class="control-label"><i class="fas fa-location-dot"></i> Location</label>
+                <input asp-for="Location" class="form-control" placeholder="e.g. Ballito" />
+                <span asp-validation-for="Location" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Capacity" class="control-label"><i class="fas fa-users"></i> Capacity</label>
+                <input asp-for="Capacity" class="form-control" />
+                <span asp-validation-for="Capacity" class="text-danger"></span>
+            </div>
+
+            <div class="mb-4">
+                <label asp-for="ImageFile" class="form-label">
+                    <i class="fas fa-upload"></i> Upload Venue Image
+                    <span style="font-weight:400; color:#94a3b8; font-size:0.8rem;">(optional)</span>
+                </label>
+
+                <div style="border:2px dashed #BDE8F5; border-radius:12px; padding:1.5rem; text-align:center; background:#f8faff; transition: border-color 0.3s ease;"
+                     id="dropZoneCreate"
+                     ondragover="event.preventDefault(); this.style.borderColor='#4988C4';"
+                     ondragleave="this.style.borderColor='#BDE8F5';"
+                     ondrop="handleDrop(event, 'ImageFile', 'previewCreate', 'dropZoneCreate')">
+                    
+                    <i class="fas fa-cloud-arrow-up fa-2x mb-2" style="color:#4988C4;"></i>
+                    <p class="mb-1" style="font-size:0.88rem; color:#64748b;">
+                        Drag & drop an image here, or
+                        <label for="ImageFile" style="color:#1C4D8D; font-weight:600; cursor:pointer; text-decoration:underline;">browse</label>
+                    </p>
+                    <p class="mb-0" style="font-size:0.78rem; color:#94a3b8;">JPG, PNG, GIF or WEBP &bull; Max 5MB</p>
+                    
+                    <input asp-for="ImageFile" type="file" id="ImageFile" accept="image/*" class="d-none"
+                           onchange="previewImage(this, 'previewCreate')" />
+                </div>
+
+                <div id="previewCreate" class="mt-3 d-none">
+                    <p class="form-label mb-2"><i class="fas fa-eye" style="color:#4988C4;"></i> Preview</p>
+                    <img id="previewCreateImg" src="#" alt="Preview"
+                         style="height:120px; width:auto; border-radius:10px; border:2px solid #BDE8F5;" />
+                    <button type="button" class="btn btn-sm btn-outline-danger ms-3" onclick="clearImage('ImageFile', 'previewCreate')">
+                        <i class="fas fa-xmark"></i> Remove
+                    </button>
+                </div>
+                <span asp-validation-for="ImageFile" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mt-4">
+                <input type="submit" value="Create Venue" class="btn btn-primary px-4" />
+                <a asp-action="Index" class="btn btn-link text-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        // Shows the image preview when a file is selected
+        function previewImage(input, previewId) {
+            const previewDiv = document.getElementById(previewId);
+            const previewImg = document.getElementById(previewId + 'Img');
+            
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    previewDiv.classList.remove('d-none');
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Handles files being dropped onto the zone
+        function handleDrop(event, inputId, previewId, dropZoneId) {
+            event.preventDefault();
+            const dropZone = document.getElementById(dropZoneId);
+            const fileInput = document.getElementById(inputId);
+            dropZone.style.borderColor = '#BDE8F5';
+
+            if (event.dataTransfer.files && event.dataTransfer.files[0]) {
+                fileInput.files = event.dataTransfer.files;
+                previewImage(fileInput, previewId);
+            }
+        }
+
+        // Resets the input and hides the preview
+        function clearImage(inputId, previewId) {
+            document.getElementById(inputId).value = "";
+            document.getElementById(previewId).classList.add('d-none');
+        }
+    </script>
+}
